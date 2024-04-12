@@ -1,6 +1,6 @@
 // token: 凯撒密码、ssl 证书
 
-// import { isProd } from '@server/config/index.js'
+import { isProd } from '@server/config/index.js'
 
 const caesar_cipher_decrypt = (text: string, iv: number) => {
   let result = ''
@@ -11,20 +11,20 @@ const caesar_cipher_decrypt = (text: string, iv: number) => {
 }
 
 export default function (req: any, res: any, next: any) {
-  // if (isProd) {
-  //   const sslCiphers = req.headers['x-ssl-ciphers'] || ''
+  if (isProd) {
+    const sslCiphers = req.headers['x-ssl-ciphers'] || ''
 
-  //   console.log('[lesson06] Received SSL ciphers:', sslCiphers)
+    console.log('[lesson06] Received SSL ciphers:', sslCiphers)
 
-  //   if (typeof sslCiphers === 'string') {
-  //     console.log('[lesson06] SSL Ciphers length:', sslCiphers.length)
+    if (typeof sslCiphers === 'string') {
+      console.log('[lesson06] SSL Ciphers length:', sslCiphers.length)
 
-  //     if (sslCiphers.length < 350) {
-  //       res.status(401).send('Unauthorized')
-  //       return
-  //     }
-  //   }
-  // }
+      if (sslCiphers.length < 350) {
+        res.status(401).send('Unauthorized')
+        return
+      }
+    }
+  }
 
   const params = req.query || {}
   const token = params.token

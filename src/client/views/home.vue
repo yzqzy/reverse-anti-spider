@@ -1,5 +1,5 @@
 <template>
-  <h1>Anti-Spider</h1>
+  <h2>Anti-Spider</h2>
 
   <div class="lesson-wrap">
     <router-link to="/lesson05" class="lesson">lesson05-时间戳校验、token校验</router-link>
