@@ -4,7 +4,7 @@ export default function (req: any, res: any, next: any) {
   const params = req.query || {}
   const token = params.token
 
-  console.log(`[lesson5] Token: ${token}`)
+  console.log(`[lesson05] Token: ${token}`)
 
   if (!token) {
     return res.status(401).send('Unauthorized')
@@ -14,17 +14,17 @@ export default function (req: any, res: any, next: any) {
   const time = tokens[0]
   const sum = tokens[1]
 
-  console.log(`[lesson5] Time: ${time}, Sum: ${sum}`)
+  console.log(`[lesson05] Time: ${time}, Sum: ${sum}`)
 
   const checkSum = time.split('').reduce((acc: number, curr: string) => {
     return acc + parseInt(curr)
   }, 0)
 
-  console.log(`[lesson5] Sum: ${sum}, Checksum: ${checkSum}`)
+  console.log(`[lesson05] Sum: ${sum}, Checksum: ${checkSum}`)
 
   if (sum != checkSum) {
-    return res.status(401).send('Unauthorized')
+    return res.status(401).send('Failed')
   }
 
-  res.send('Lesson 5 is completed')
+  res.send('Success')
 }

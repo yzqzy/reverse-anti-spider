@@ -37,7 +37,7 @@ pipeline {
 
 					docker buildx build -t ${IMAGE} .
 
-					docker run -d -p 5000:5000 \
+					docker run -d -p 4300:4300 \
             --name=${SERVER_NAME} \
             -e NODE_ENV=production \
 							${IMAGE}
