@@ -23,8 +23,8 @@ export default function (req: any, res: any, next: any) {
   console.log(`[lesson05] Sum: ${sum}, Checksum: ${checkSum}`)
 
   if (sum != checkSum) {
-    return res.status(401).send('Failed')
+    return res.status(401).send('Unauthorized')
   }
 
-  res.send('Success')
+  res.send('Authorized')
 }

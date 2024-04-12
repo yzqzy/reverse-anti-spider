@@ -1,6 +1,11 @@
 // token: 凯撒密码、ssl 证书
 
+import CryptoJS from 'crypto-js'
 import { isProd } from '@server/config/index.js'
+
+const base64_decrypt = (text: string) => {
+  return CryptoJS.enc.Base64.parse(text).toString(CryptoJS.enc.Utf8)
+}
 
 const caesar_cipher_decrypt = (text: string, iv: number) => {
   let result = ''
@@ -36,9 +41,9 @@ export default function (req: any, res: any, next: any) {
   try {
     const tokens = token.split('&')
     const text = tokens[0]
-    const iv = tokens[1]
+    const iv = base64_decrypt(tokens[1])
 
-    const caesarText = caesar_cipher_decrypt(text, iv)
+    const caesarText = caesar_cipher_decrypt(text, +iv)
 
     console.log(`[lesson06] Caesar Text: ${caesarText}`)
 
@@ -60,7 +65,7 @@ export default function (req: any, res: any, next: any) {
         return
       }
 
-      res.send('Success')
+      res.send('Authorized')
       return
     }
 
