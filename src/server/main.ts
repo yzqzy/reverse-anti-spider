@@ -9,6 +9,7 @@ import serverTime from './service/server-time.js'
 import toeknVerify from './service/token-verify.js'
 import caesarCipherVerify from './service/caesar-cipher-verify.js'
 import cookieVerify from './service/cookie-verify.js'
+import cookiePlusVerify from './service/cookie-plus-verify.js'
 import sessionVerify from './service/session-verify.js'
 
 const app = express()
@@ -27,9 +28,12 @@ app.use(
   })
 )
 app.use((req, res, next) => {
-  console.log(`Request: ${req.method} ${req.url}`)
+  // console.log(`Request: ${req.method} ${req.url}`)
 
   if (req.url.startsWith('/cookie-verify')) {
+    res.cookie('sid', Date.now() + '')
+  }
+  if (req.url.startsWith('/cookie-plus-verify')) {
     res.cookie('sid', Date.now() + '')
   }
 
@@ -40,6 +44,7 @@ app.get('/api/server-time', serverTime)
 app.get('/api/token-verify', toeknVerify)
 app.get('/api/caesar-cipher-verify', caesarCipherVerify)
 app.get('/api/cookie-verify', cookieVerify)
+app.get('/api/cookie-plus-verify', cookiePlusVerify)
 app.get('/api/session-verify', sessionVerify)
 
 const port = isProd ? 4300 : 3000

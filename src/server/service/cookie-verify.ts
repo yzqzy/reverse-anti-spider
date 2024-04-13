@@ -10,6 +10,10 @@ export default function (req: any, res: any, next: any) {
   console.log(`[cookie verify] time: ${time}`)
   console.log(`[cookie verify] Cookie: ${jsonStringify(cookie)}`)
 
+  if (!time) {
+    return res.status(401).send('Unauthorized')
+  }
+
   const token = base64Decrypt(cookie.token)
 
   console.log(`[cookie verify] Token: ${token}`)

@@ -19,7 +19,6 @@ export const getRandomInt = (
 ) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
-
 export const getRandomString = (length: number = 10) => {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   let result = ''

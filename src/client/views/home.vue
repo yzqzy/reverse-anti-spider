@@ -6,6 +6,7 @@
     <router-link to="/caesar-cipher-verify" class="example">2. 凯撒密码校验</router-link>
     <router-link to="/cookie-verify" class="example">3. cookie 校验</router-link>
     <router-link to="/session-verify" class="example">4. session 保持校验</router-link>
+    <router-link to="/cookie-plus-verify" class="example">5. cookie 校验 Plus</router-link>
   </div>
 
 </template>

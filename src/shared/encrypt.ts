@@ -10,6 +10,7 @@ export const base64Encrypt = (text: string) => {
   return CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(text))
 }
 export const base64Decrypt = (text: string) => {
+  if (!text) return ''
   return CryptoJS.enc.Base64.parse(text).toString(CryptoJS.enc.Utf8)
 }
 
