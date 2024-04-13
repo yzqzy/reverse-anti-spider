@@ -24,7 +24,12 @@ export default function (req: any, res: any, next: any) {
   const serverTime = decryptedText.split('&')[1]
   console.log(`[cookie verify] Server time: ${serverTime}`)
 
+  const currentTime = Date.now()
+
   if (serverTime !== time) {
+    return res.status(401).send('Unauthorized')
+  }
+  if (Math.abs(currentTime - +serverTime) > 1000) {
     return res.status(401).send('Unauthorized')
   }
 
