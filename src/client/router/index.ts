@@ -23,6 +23,11 @@ const routes: RouteRecordRaw[] = [
     path: '/cookie-verify',
     name: 'CookieVerify',
     component: () => import('@client/views/cookie-verify.vue')
+  },
+  {
+    path: '/session-verify',
+    name: 'SessionVerify',
+    component: () => import('@client/views/session-verify.vue')
   }
 ]
 

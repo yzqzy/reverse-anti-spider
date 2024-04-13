@@ -1,37 +1,44 @@
-// session 完整性校验
+// session 保持校验
 
-import { jsonStringify, parseCookie } from '@shared/tools.js'
-import { desDecrypt, base64Decrypt } from '@shared/encrypt.js'
+import { getRandomString, parseCookie } from '@shared/tools.js'
 
 export default function (req: any, res: any, next: any) {
-  const time = (req.query || {}).t
   const cookie = parseCookie(req.headers.cookie)
+  const { page } = req.query
 
-  console.log(`[cookie verify] time: ${time}`)
-  console.log(`[cookie verify] Cookie: ${jsonStringify(cookie)}`)
+  console.log(`[session verify] page: ${page}`)
 
-  const token = base64Decrypt(cookie.token)
+  if (page != 1) {
+    const token = req.session.token
 
-  console.log(`[cookie verify] Token: ${token}`)
+    console.log(`[session verify] token: ${token}`)
 
-  if (!token || !time) {
-    return res.status(401).send('Unauthorized')
+    if (!token) {
+      return res.status(401).send('Unauthorized')
+    }
+
+    const [key, value] = token.split('&')
+    const sign = cookie[key]
+
+    if (!token || !sign) {
+      return res.status(401).send('Unauthorized')
+    }
+    if (value !== sign) {
+      return res.status(401).send('Unauthorized')
+    }
   }
 
-  const decryptedText = desDecrypt(token, time)
-  console.log(`[cookie verify] Decrypted text: ${decryptedText}`)
+  const key = getRandomString()
+  const value = getRandomString()
 
-  const serverTime = decryptedText.split('&')[1]
-  console.log(`[cookie verify] Server time: ${serverTime}`)
+  console.log(`[session verify] key: ${key}, value: ${value}`)
 
-  const currentTime = Date.now()
+  req.session.token = `${key}&${value}`
 
-  if (serverTime !== time) {
-    return res.status(401).send('Unauthorized')
-  }
-  if (Math.abs(currentTime - +serverTime) > 1000) {
-    return res.status(401).send('Unauthorized')
-  }
+  Object.keys(cookie).forEach(k => {
+    if (k !== 'spider.sid') res.clearCookie(k)
+  })
+  res.cookie(key, value)
 
   res.send('Authorized')
 }

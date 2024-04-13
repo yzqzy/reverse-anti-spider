@@ -4,7 +4,7 @@ import { jsonStringify, parseCookie } from '@shared/tools.js'
 import { desDecrypt, base64Decrypt } from '@shared/encrypt.js'
 
 export default function (req: any, res: any, next: any) {
-  const time = (req.query || {}).t
+  const time = base64Decrypt((req.query || {}).t)
   const cookie = parseCookie(req.headers.cookie)
 
   console.log(`[cookie verify] time: ${time}`)
@@ -25,13 +25,10 @@ export default function (req: any, res: any, next: any) {
   console.log(`[cookie verify] Server time: ${serverTime}`)
 
   const currentTime = Date.now()
-
-  if (serverTime !== time) {
-    return res.status(401).send('Unauthorized')
-  }
   if (Math.abs(currentTime - +serverTime) > 1000) {
     return res.status(401).send('Unauthorized')
   }
 
+  res.cookie('sid', undefined, { maxAge: -1 })
   res.send('Authorized')
 }

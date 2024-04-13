@@ -3,8 +3,9 @@
 
   <div class="example-wrap">
     <router-link to="/token-verify" class="example">1. 时间戳、token 校验</router-link>
-    <router-link to="/caesar-cipher-verify" class="example">2. 凯撒密码</router-link>
+    <router-link to="/caesar-cipher-verify" class="example">2. 凯撒密码校验</router-link>
     <router-link to="/cookie-verify" class="example">3. cookie 校验</router-link>
+    <router-link to="/session-verify" class="example">4. session 保持校验</router-link>
   </div>
 
 </template>

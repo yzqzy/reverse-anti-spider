@@ -1,4 +1,5 @@
 <template>
+  <h2>Caesar Cipher Verify</h2>
   <div class="result">{{ result }}</div>
 </template>
 
@@ -18,9 +19,9 @@ onMounted(() => {
     params: {
       token: `${caesarCipherEncrypt(time, sum)}&${btoa(sum + '')}`
     }
-  }).then((data) => {
+  }).then((data: any) => {
     result.value =
-      (data as any) === 'Authorized' ? 'success' : 'failed'
+      data === 'Authorized' ? 'success' : 'failed'
   }).catch(() => {
     result.value = 'failed'
   })

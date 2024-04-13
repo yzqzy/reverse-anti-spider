@@ -1,4 +1,5 @@
 <template>
+  <h2>Token Verify</h2>
   <div class="result">{{ result }}</div>
 </template>
 
@@ -16,11 +17,12 @@ onMounted(() => {
     params: {
       token: `${time}|${sum}`
     }
-  }).then((data) => {
-    result.value =
-      (data as any) === 'Authorized' ? 'success' : 'failed'
-  }).catch(() => {
-    result.value = 'failed'
   })
+    .then((data: any) => {
+      result.value =
+        data === 'Authorized' ? 'success' : 'failed'
+    }).catch(() => {
+      result.value = 'failed'
+    })
 })
 </script>
