@@ -6,7 +6,7 @@
 import { ref, onMounted } from 'vue'
 import request from '@shared/request'
 import {
-  getEncryptParams, caesarCipherEncrypt, base64Encrypt
+  getEncryptParams, caesarCipherEncrypt
 } from '@shared/encrypt'
 
 const result = ref('')
@@ -16,7 +16,7 @@ onMounted(() => {
 
   request.get('/api/caser-cipher', {
     params: {
-      token: `${caesarCipherEncrypt(time, sum)}&${base64Encrypt(sum + '')}`
+      token: `${caesarCipherEncrypt(time, sum)}&${btoa(sum + '')}`
     }
   }).then(() => {
     result.value = 'success'

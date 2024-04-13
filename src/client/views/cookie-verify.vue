@@ -5,20 +5,20 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import request from '@shared/request'
-import { desEncrypt, base64Encrypt } from '@shared/encrypt'
+import { desEncrypt } from '@shared/encrypt'
 import { getServerTime } from '@client/api/index'
 
 const result = ref('')
 
 onMounted(async () => {
   const time = await getServerTime()
-  const text = `${base64Encrypt('time')}&${time}`
+  const text = `${btoa('vunpL5UNKmv3qEvTHhMM')}&${time}`
 
-  document.cookie = `token=${desEncrypt(text, time + '')}`
+  document.cookie = `token=${btoa(desEncrypt(text, time + ''))}`
 
   request.get('/api/cookie-verify', {
     params: {
-      t: `${time}`
+      t: time
     }
   }).then(() => {
     result.value = 'success'

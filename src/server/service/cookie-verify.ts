@@ -1,7 +1,7 @@
 // cookie 校验
 
 import { jsonStringify, parseCookie } from '@shared/tools.js'
-import { desDecrypt } from '@shared/encrypt.js'
+import { desDecrypt, base64Decrypt } from '@shared/encrypt.js'
 
 export default function (req: any, res: any, next: any) {
   const time = (req.query || {}).t
@@ -10,7 +10,7 @@ export default function (req: any, res: any, next: any) {
   console.log(`[cookie verify] time: ${time}`)
   console.log(`[cookie verify] Cookie: ${jsonStringify(cookie)}`)
 
-  const token = cookie.token
+  const token = base64Decrypt(cookie.token)
 
   console.log(`[cookie verify] Token: ${token}`)
 
