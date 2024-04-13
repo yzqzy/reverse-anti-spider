@@ -20,8 +20,9 @@ onMounted(async () => {
     params: {
       t: time
     }
-  }).then(() => {
-    result.value = 'success'
+  }).then((data) => {
+    result.value =
+      (data as any) === 'Authorized' ? 'success' : 'failed'
   }).catch(() => {
     result.value = 'failed'
   })

@@ -15,9 +15,9 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@client/views/token-verify.vue')
   },
   {
-    path: '/caesar-cipher',
-    name: 'CaesarCipher',
-    component: () => import('@client/views/caesar-cipher.vue')
+    path: '/caesar-cipher-verify',
+    name: 'CaesarCipherVerify',
+    component: () => import('@client/views/caesar-cipher-verify.vue')
   },
   {
     path: '/cookie-verify',

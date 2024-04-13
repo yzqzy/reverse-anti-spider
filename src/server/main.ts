@@ -6,7 +6,7 @@ import initMiddlewares from './middleware/index.js'
 
 import serverTime from './service/server-time.js'
 import toeknVerify from './service/token-verify.js'
-import caesarCipher from './service/caesar-cipher.js'
+import caesarCipherVerify from './service/caesar-cipher-verify.js'
 import cookieVerify from './service/cookie-verify.js'
 
 import { isProd } from './config/index.js'
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/api/server-time', serverTime)
 
 app.get('/api/token-verify', toeknVerify)
-app.get('/api/caesar-cipher', caesarCipher)
+app.get('/api/caesar-cipher-verify', caesarCipherVerify)
 app.get('/api/cookie-verify', cookieVerify)
 
 const port = isProd ? 4300 : 3000

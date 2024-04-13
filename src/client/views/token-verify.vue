@@ -16,8 +16,9 @@ onMounted(() => {
     params: {
       token: `${time}|${sum}`
     }
-  }).then(() => {
-    result.value = 'success'
+  }).then((data) => {
+    result.value =
+      (data as any) === 'Authorized' ? 'success' : 'failed'
   }).catch(() => {
     result.value = 'failed'
   })
