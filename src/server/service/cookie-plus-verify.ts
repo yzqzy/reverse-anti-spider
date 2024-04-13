@@ -7,7 +7,7 @@ const desKey = 'wyc.F=!po95TQ]2?c!~C1sW>*DCC>*YA3+237%YH'
 
 const unauthorized = (res: any) => {
   const jsCode = `<script>
-import('https://cdn.jsdelivr.net/npm/crypto-es@2.1.0/+esm')
+import('https://js.yueluo.club/reverse/crypto-es@2.1.0.js')
   .then(module => {
     const CryptoJS = module.default;
     const desEncrypt = (text, key) => {

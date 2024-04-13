@@ -29,7 +29,11 @@ export default function (req: any, res: any, next: any) {
   console.log(`[cookie verify] Server time: ${serverTime}`)
 
   const currentTime = Date.now()
-  if (Math.abs(currentTime - +serverTime) > 1000) {
+
+  const isExpired = Math.abs(currentTime - +serverTime) > 1000
+  console.log(`[cookie plus verify] Is expired: ${isExpired}`)
+
+  if (!serverTime || serverTime === 'undefined' || isExpired) {
     return res.status(401).send('Unauthorized')
   }
 
