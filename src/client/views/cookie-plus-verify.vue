@@ -1,5 +1,5 @@
 <template>
-  <h2>Cookie Verify</h2>
+  <h2>Cookie Plus Verify</h2>
   <div class="result">{{ result }}</div>
 </template>
 

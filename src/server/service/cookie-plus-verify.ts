@@ -65,7 +65,7 @@ export default function (req: any, res: any, next: any) {
     const isExpired = Math.abs(currentTime - +serverTime) > 5 * 1000
     console.log(`[cookie plus verify] Is expired: ${isExpired}`)
 
-    if (!serverTime || isExpired) {
+    if (!serverTime || serverTime === 'undefined' || isExpired) {
       return unauthorized(res)
     }
 
