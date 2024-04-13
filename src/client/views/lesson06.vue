@@ -5,7 +5,9 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import request from '@client/shared/request'
-import { getEncryptParams, caesarCipherEncrypt, base64Encrypt } from '@client/shared/tools'
+import {
+  getEncryptParams, caesarCipherEncrypt, base64Encrypt
+} from '@client/shared/tools'
 
 const result = ref('')
 
