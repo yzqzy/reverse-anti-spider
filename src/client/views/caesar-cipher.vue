@@ -4,17 +4,17 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import request from '@client/shared/request'
+import request from '@shared/request'
 import {
   getEncryptParams, caesarCipherEncrypt, base64Encrypt
-} from '@client/shared/tools'
+} from '@shared/encrypt'
 
 const result = ref('')
 
 onMounted(() => {
   const { time, sum } = getEncryptParams()
 
-  request.get('/api/lesson06', {
+  request.get('/api/caser-cipher', {
     params: {
       token: `${caesarCipherEncrypt(time, sum)}&${base64Encrypt(sum + '')}`
     }

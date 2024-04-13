@@ -10,7 +10,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@client': resolve(__dirname, './src/client'),
-      '@server': resolve(__dirname, './src/server')
+      '@server': resolve(__dirname, './src/server'),
+      '@shared': resolve(__dirname, './src/shared')
     }
   },
   build: {

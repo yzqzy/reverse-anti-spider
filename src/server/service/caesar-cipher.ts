@@ -1,28 +1,16 @@
-// token: 凯撒密码、ssl 证书
+// 凯撒密码、ssl 证书校验
 
-import CryptoJS from 'crypto-js'
 import { isProd } from '@server/config/index.js'
-
-const base64_decrypt = (text: string) => {
-  return CryptoJS.enc.Base64.parse(text).toString(CryptoJS.enc.Utf8)
-}
-
-const caesar_cipher_decrypt = (text: string, iv: number) => {
-  let result = ''
-  for (let i of text) {
-    result += String.fromCharCode(i.charCodeAt(0) - iv)
-  }
-  return result
-}
+import { base64Decrypt, caesarCipherDecrypt } from '@shared/encrypt.js'
 
 export default function (req: any, res: any, next: any) {
   if (isProd) {
     const sslCiphers = req.headers['x-ssl-ciphers'] || ''
 
-    console.log('[lesson06] Received SSL ciphers:', sslCiphers)
+    console.log('[caesar cipher] Received SSL ciphers:', sslCiphers)
 
     if (typeof sslCiphers === 'string') {
-      console.log('[lesson06] SSL Ciphers length:', sslCiphers.length)
+      console.log('[caesar cipher] SSL Ciphers length:', sslCiphers.length)
 
       if (sslCiphers.length < 350) {
         res.status(401).send('Unauthorized')
@@ -41,24 +29,24 @@ export default function (req: any, res: any, next: any) {
   try {
     const tokens = token.split('&')
     const text = tokens[0]
-    const iv = base64_decrypt(tokens[1])
+    const iv = base64Decrypt(tokens[1])
 
-    const caesarText = caesar_cipher_decrypt(text, +iv)
+    const caesarText = caesarCipherDecrypt(text, +iv)
 
-    console.log(`[lesson06] Caesar Text: ${caesarText}`)
+    console.log(`[caesar cipher] Caesar Text: ${caesarText}`)
 
     if (caesarText && typeof caesarText === 'string') {
       const currentStamp = new Date().getTime()
       const tokenStamp = +caesarText
 
-      console.log(`[lesson06] Current stamp: ${currentStamp}`)
-      console.log(`[lesson06] Token stamp: ${tokenStamp}`)
+      console.log(`[caesar cipher] Current stamp: ${currentStamp}`)
+      console.log(`[caesar cipher] Token stamp: ${tokenStamp}`)
 
       const timeDiff = Math.abs(currentStamp - tokenStamp)
       const tokenExpired = timeDiff > 10 * 1000
 
-      console.log(`[lesson06] Time Diff: ${timeDiff}`)
-      console.log(`[lesson06] Token Expired: ${tokenExpired}`)
+      console.log(`[caesar cipher] Time Diff: ${timeDiff}`)
+      console.log(`[caesar cipher] Token Expired: ${tokenExpired}`)
 
       if (tokenExpired) {
         res.status(401).send('Unauthorized')

@@ -1,11 +1,10 @@
 import axios from 'axios'
-import exp from 'constants'
 
 const request = axios.create({})
 
 request.interceptors.response.use(
   response => {
-    return response
+    return response.data
   },
   error => {
     return Promise.reject(error.message)

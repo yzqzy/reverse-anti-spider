@@ -1,4 +1,4 @@
-import { jsonFormatted } from '../shared/tools.js'
+import { jsonStringify } from '@shared/tools.js'
 
 const check = (orders_keys: string[], keys: string[]) => {
   for (let order of orders_keys) {
@@ -43,8 +43,8 @@ const headers_order_check = (req: any, res: any, next: any) => {
 
   console.log('-'.repeat(50))
   console.log(`Use Agent: ${useAgent}`)
-  console.log(`Headers: ${jsonFormatted(req.headers)}`)
-  console.log(`Standard order: ${jsonFormatted(standardOrder)}`)
+  console.log(`Headers: ${jsonStringify(req.headers)}`)
+  console.log(`Standard order: ${jsonStringify(standardOrder)}`)
   console.log(`Is Pass: ${isPass}`)
   console.log('-'.repeat(50))
 

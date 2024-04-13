@@ -10,14 +10,19 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@client/views/home.vue')
   },
   {
-    path: '/lesson05',
-    name: 'Lesson05',
-    component: () => import('@client/views/lesson05.vue')
+    path: '/token-verify',
+    name: 'TokenVerify',
+    component: () => import('@client/views/token-verify.vue')
   },
   {
-    path: '/lesson06',
-    name: 'Lesson06',
-    component: () => import('@client/views/lesson06.vue')
+    path: '/caesar-cipher',
+    name: 'CaesarCipher',
+    component: () => import('@client/views/caesar-cipher.vue')
+  },
+  {
+    path: '/cookie-verify',
+    name: 'CookieVerify',
+    component: () => import('@client/views/cookie-verify.vue')
   }
 ]
 

@@ -14,7 +14,8 @@
     "noEmit": true,
     "paths": {
       "@client/*": ["./src/client/*"],
-      "@server/*": ["./src/server/*"]
+      "@server/*": ["./src/server/*"],
+      "@shared/*": ["./src/shared/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]

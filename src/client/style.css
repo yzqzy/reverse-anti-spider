@@ -36,8 +36,7 @@ h1 {
 }
 h2 {
   font-size: 2.2em;
-  line-height: 1.1;
-  text-align: left;
+  line-height: 0.8;
 }
 
 button {
@@ -66,7 +65,6 @@ button:focus-visible {
 #app {
   max-width: 1280px;
   padding: 1rem 2rem;
-  text-align: center;
 }
 
 @media (prefers-color-scheme: light) {
