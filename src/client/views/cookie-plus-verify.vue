@@ -7,12 +7,13 @@
 import { ref, onMounted } from 'vue'
 import request from '@shared/request'
 
-const result = ref('')
+const result = ref('loading...')
 
 onMounted(async () => {
   request.get('/api/cookie-plus-verify').then((data: any) => {
-    result.value =
-      data === 'Authorized' ? 'success' : 'failed'
+    if (data == 'Authorized') {
+      result.value = 'success'
+    }
   }).catch(() => {
     result.value = 'failed'
   })
