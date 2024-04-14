@@ -14,14 +14,8 @@ request.interceptors.response.use(
     if (/<script>/i.test(data)) {
       try {
         const content = data.match(/<script>([\s\S]*?)<\/script>/)[1]
-        console.log('Anti-spider script detected:', content)
-        console.log('Decrypting content...', parseCookie(document.cookie).sid)
-        console.log(
-          'Decrypted content:',
-          btoa(parseCookie(document.cookie).sid)
-        )
-
         content &&
+          content !== 'undefined' &&
           eval(aesDecrypt(content, btoa(parseCookie(document.cookie).sid)))
       } catch (error) {
         console.error('Failed to decrypt anti-spider script:', error)
