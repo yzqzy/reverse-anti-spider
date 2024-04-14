@@ -2,7 +2,6 @@ import express from 'express'
 import ViteExpress from 'vite-express'
 import bodyParser from 'body-parser'
 import session from 'express-session'
-import rateLimit from 'express-rate-limit'
 
 import { isProd } from './config/index.js'
 import initMiddlewares from './middleware/index.js'
@@ -19,19 +18,6 @@ initMiddlewares(app)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-if (isProd) {
-  app.use(
-    rateLimit({
-      windowMs: 1000 * 60 * 15,
-      limit: 100,
-      standardHeaders: 'draft-7',
-      legacyHeaders: false,
-      message:
-        'Too many requests from this IP, please try again after a minute.'
-    })
-  )
-}
 
 app.use(
   session({
