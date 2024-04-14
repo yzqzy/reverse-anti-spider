@@ -2,7 +2,6 @@ import express from 'express'
 import ViteExpress from 'vite-express'
 import bodyParser from 'body-parser'
 import session from 'express-session'
-import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 
 import { isProd } from './config/index.js'
@@ -22,7 +21,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 if (isProd) {
-  app.use(helmet())
   app.use(
     rateLimit({
       windowMs: 1000 * 60 * 15,
