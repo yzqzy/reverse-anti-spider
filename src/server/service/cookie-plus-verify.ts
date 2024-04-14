@@ -53,6 +53,10 @@ export default function (req: any, res: any, next: any) {
 
     console.log(`[cookie plus verify] Cookie: ${jsonStringify(cookie)}`)
 
+    if (!cookie.token) {
+      return unauthorized(req, res)
+    }
+
     const token = base64Decrypt(cookie.token)
 
     console.log(`[cookie plus verify] Token: ${token}`)
