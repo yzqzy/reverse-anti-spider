@@ -33,10 +33,7 @@ const unauthorized = (req: any, res: any) => {
     return result
   }
   const time = parseCookie(document.cookie).sid;
-  if (!time) {
-    location.reload();
-    return;
-  }
+  if (!time) return;
   const text = btoa('${getRandomString()}') + '&' + time;
   document.cookie = 'token=' + btoa(desEncrypt(text, '${desKey}'));
   location.reload();
