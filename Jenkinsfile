@@ -37,9 +37,8 @@ pipeline {
 
 					docker buildx build -t ${IMAGE} .
 
-					docker run -d -p 4300:4300 \
+					docker run -d -p ${SERVER_PORT}:3000 \
             --name=${SERVER_NAME} \
-            -e NODE_ENV=production \
 							${IMAGE}
 				'''
 			}

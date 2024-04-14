@@ -49,7 +49,7 @@ app.get('/api/cookie-verify', cookieVerify)
 app.get('/api/cookie-plus-verify', cookiePlusVerify)
 app.get('/api/session-verify', sessionVerify)
 
-const port = isProd ? 4300 : 3000
+const port = Number(process.env.PORT) || 3000
 ViteExpress.listen(app, port, () =>
   console.log(`Server is listening on port ${port}...`)
 )
