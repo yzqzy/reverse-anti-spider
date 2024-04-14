@@ -34,7 +34,9 @@ app.use((req, res, next) => {
     res.cookie('sid', Date.now() + '')
   }
   if (req.url.startsWith('/cookie-plus-verify')) {
-    res.cookie('sid', Date.now() + '')
+    const time = Date.now() + ''
+    res.cookie('sid', time)
+    req.session.sid = time
   }
 
   next()

@@ -1,43 +1,50 @@
 // cookie 校验 plus
 
 import { getRandomString, jsonStringify, parseCookie } from '@shared/tools.js'
-import { desDecrypt, base64Decrypt } from '@shared/encrypt.js'
+import {
+  aesEncrypt,
+  desDecrypt,
+  base64Decrypt,
+  base64Encrypt
+} from '@shared/encrypt.js'
 
 const desKey = 'wyc.F=!po95TQ]2?c!~C1sW>*DCC>*YA3+237%YH'
 
-const unauthorized = (res: any) => {
-  const jsCode = `<script>
-import('https://js.yueluo.club/reverse/crypto-es@2.1.0.js')
-  .then(module => {
-    const CryptoJS = module.default;
-    const desEncrypt = (text, key) => {
-      const keyHex = CryptoJS.enc.Hex.parse(key);
-      const encrypted = CryptoJS.DES.encrypt(text, keyHex, {
-        mode: CryptoJS.mode.ECB,
-        padding: CryptoJS.pad.Pkcs7
-      });
-      return encrypted.toString();
-    };
-    const parseCookie = (cookie) => {
-      if (!cookie) return {}
-      const cookies = cookie.split(';')
-      const result = {}
-      for (const c of cookies) {
-        const [key, value] = c.trim().split('=')
-        result[key] = value
-      }
-      return result
+const unauthorized = (req: any, res: any) => {
+  const jsCode = `import('https://js.yueluo.club/reverse/crypto-es@2.1.0.js')
+.then(module => {
+  const CryptoJS = module.default;
+  const desEncrypt = (text, key) => {
+    const keyHex = CryptoJS.enc.Hex.parse(key);
+    const encrypted = CryptoJS.DES.encrypt(text, keyHex, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    });
+    return encrypted.toString();
+  };
+  const parseCookie = (cookie) => {
+    if (!cookie) return {}
+    const cookies = cookie.split(';')
+    const result = {}
+    for (const c of cookies) {
+      const [key, value] = c.trim().split('=')
+      result[key] = value
     }
-    const time = parseCookie(document.cookie).sid;
-    const text = btoa('${getRandomString()}') + '&' + time;
-    document.cookie = 'token=' + btoa(desEncrypt(text, '${desKey}'));
-    location.reload();
-  })
-  .catch(error => {
-    console.error(error);
-  });
-</script>`
-  return res.status(401).send(jsCode)
+    return result
+  }
+  const time = parseCookie(document.cookie).sid;
+  const text = btoa('${getRandomString()}') + '&' + time;
+  document.cookie = 'token=' + btoa(desEncrypt(text, '${desKey}'));
+  location.reload();
+})
+.catch(error => {
+  console.error(error);
+});`
+  const script = `<script>${aesEncrypt(
+    jsCode,
+    base64Encrypt(req.session.sid)
+  )}</script>`
+  return res.status(401).send(script)
 }
 
 export default function (req: any, res: any, next: any) {
@@ -51,7 +58,7 @@ export default function (req: any, res: any, next: any) {
     console.log(`[cookie plus verify] Token: ${token}`)
 
     if (!token) {
-      return unauthorized(res)
+      return unauthorized(req, res)
     }
 
     const decryptedText = desDecrypt(token, desKey)
@@ -66,12 +73,12 @@ export default function (req: any, res: any, next: any) {
     console.log(`[cookie plus verify] Is expired: ${isExpired}`)
 
     if (!serverTime || serverTime === 'undefined' || isExpired) {
-      return unauthorized(res)
+      return unauthorized(req, res)
     }
 
     res.cookie('sid', undefined, { maxAge: -1 })
     res.send('Authorized')
   } catch (error) {
-    return unauthorized(res)
+    return unauthorized(req, res)
   }
 }

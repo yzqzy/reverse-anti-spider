@@ -13,6 +13,12 @@ const result = ref('')
 
 onMounted(async () => {
   const time = parseCookie(document.cookie).sid
+
+  if (!time) {
+    window.location.reload()
+    return
+  }
+
   const text = `${btoa('vunpL5UNKmv3qEvTHhMM')}&${time}`
 
   document.cookie = `token=${btoa(desEncrypt(text, time + ''))}`
