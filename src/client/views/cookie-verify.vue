@@ -28,8 +28,7 @@ onMounted(async () => {
       t: btoa(time)
     }
   }).then((data: any) => {
-    result.value =
-      data === 'Authorized' ? 'success' : 'failed'
+    result.value = data
   }).catch(() => {
     result.value = 'failed'
   })

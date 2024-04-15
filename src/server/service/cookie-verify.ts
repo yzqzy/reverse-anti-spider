@@ -11,7 +11,7 @@ export default function (req: any, res: any, next: any) {
   console.log(`[cookie verify] Cookie: ${jsonStringify(cookie)}`)
 
   if (!time) {
-    return res.status(401).send('Unauthorized')
+    return res.send('Unauthorized')
   }
 
   const token = base64Decrypt(cookie.token)
@@ -19,7 +19,7 @@ export default function (req: any, res: any, next: any) {
   console.log(`[cookie verify] Token: ${token}`)
 
   if (!token || !time) {
-    return res.status(401).send('Unauthorized')
+    return res.send('Unauthorized')
   }
 
   const decryptedText = desDecrypt(token, time)
@@ -34,7 +34,7 @@ export default function (req: any, res: any, next: any) {
   console.log(`[cookie plus verify] Is expired: ${isExpired}`)
 
   if (!serverTime || serverTime === 'undefined' || isExpired) {
-    return res.status(401).send('Unauthorized')
+    return res.send('Unauthorized')
   }
 
   res.cookie('sid', undefined, { maxAge: -1 })

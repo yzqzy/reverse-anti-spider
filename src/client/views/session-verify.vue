@@ -18,8 +18,7 @@ const page = ref(1)
 const verify = async (page: number) => {
   request.get(`/api/session-verify?page=${page}`)
     .then((data: any) => {
-      result.value = data === 'Authorized'
-        ? `page ${page} passed, stmp ${Date.now()}` : `page ${page} failed`
+      result.value = `${page} ${data}`
     })
     .catch(() => {
       result.value = 'failed'

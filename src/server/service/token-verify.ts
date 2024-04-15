@@ -9,7 +9,7 @@ export default function (req: any, res: any, next: any) {
   console.log(`[token verify] Token: ${token}`)
 
   if (!token) {
-    return res.status(401).send('Unauthorized')
+    return res.send('Unauthorized')
   }
 
   const tokens = token.split('|')
@@ -23,7 +23,7 @@ export default function (req: any, res: any, next: any) {
   console.log(`[token verify] Sum: ${sum}, Checksum: ${checkSum}`)
 
   if (sum != checkSum) {
-    return res.status(401).send('Unauthorized')
+    return res.send('Unauthorized')
   }
 
   res.send('Authorized')

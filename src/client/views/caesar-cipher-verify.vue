@@ -20,8 +20,7 @@ onMounted(() => {
       token: `${caesarCipherEncrypt(time, sum)}&${btoa(sum + '')}`
     }
   }).then((data: any) => {
-    result.value =
-      data === 'Authorized' ? 'success' : 'failed'
+    result.value = data
   }).catch(() => {
     result.value = 'failed'
   })

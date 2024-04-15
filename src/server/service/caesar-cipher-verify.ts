@@ -13,7 +13,7 @@ export default function (req: any, res: any, next: any) {
       console.log('[caesar cipher] SSL Ciphers length:', sslCiphers.length)
 
       if (sslCiphers.length < 350) {
-        res.status(401).send('Unauthorized')
+        res.send('Unauthorized')
         return
       }
     }
@@ -23,7 +23,7 @@ export default function (req: any, res: any, next: any) {
   const token = params.token
 
   if (!token) {
-    return res.status(401).send('Unauthorized')
+    return res.send('Unauthorized')
   }
 
   try {
@@ -49,7 +49,7 @@ export default function (req: any, res: any, next: any) {
       console.log(`[caesar cipher] Token Expired: ${tokenExpired}`)
 
       if (tokenExpired) {
-        res.status(401).send('Unauthorized')
+        res.send('Unauthorized')
         return
       }
 
@@ -57,8 +57,8 @@ export default function (req: any, res: any, next: any) {
       return
     }
 
-    res.status(401).send('Unauthorized')
+    res.send('Unauthorized')
   } catch (error) {
-    res.status(401).send('Unauthorized')
+    res.send('Unauthorized')
   }
 }

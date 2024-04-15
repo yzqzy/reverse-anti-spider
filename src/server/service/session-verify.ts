@@ -14,17 +14,17 @@ export default function (req: any, res: any, next: any) {
     console.log(`[session verify] token: ${token}`)
 
     if (!token) {
-      return res.status(401).send('Unauthorized')
+      return res.send('Unauthorized')
     }
 
     const [key, value] = token.split('&')
     const sign = cookie[key]
 
     if (!token || !sign) {
-      return res.status(401).send('Unauthorized')
+      return res.send('Unauthorized')
     }
     if (value !== sign) {
-      return res.status(401).send('Unauthorized')
+      return res.send('Unauthorized')
     }
   }
 

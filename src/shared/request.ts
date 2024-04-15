@@ -6,10 +6,7 @@ const request = axios.create({})
 
 request.interceptors.response.use(
   response => {
-    return response.data
-  },
-  error => {
-    const data = error.response?.data || error.message
+    const data = response.data
 
     if (/<script>/i.test(data)) {
       try {
@@ -22,12 +19,15 @@ request.interceptors.response.use(
         if (content && content !== 'undefined') {
           eval(aesDecrypt(content, btoa(parseCookie(document.cookie).sid)))
         }
-        return Promise.resolve('temp')
       } catch (error) {
         console.error('Failed to decrypt anti-spider script:', error)
       }
+      return ''
     }
 
+    return response.data
+  },
+  error => {
     return Promise.reject(error.message)
   }
 )

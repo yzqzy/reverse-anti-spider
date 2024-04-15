@@ -11,9 +11,7 @@ const result = ref('')
 
 onMounted(async () => {
   request.get('/api/cookie-plus-verify').then((data: any) => {
-    if (data == 'Authorized') {
-      result.value = 'success'
-    }
+    result.value = data
   }).catch(() => {
     result.value = 'failed'
   })

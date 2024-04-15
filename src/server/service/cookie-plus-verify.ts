@@ -13,30 +13,32 @@ const desKey = 'wyc.F=!po95TQ]2?c!~C1sW>*DCC>*YA3+237%YH'
 const unauthorized = (req: any, res: any) => {
   const jsCode = `import('https://cdn.jsdelivr.net/npm/crypto-es@2.1.0/+esm')
 .then(module => {
-  const CryptoJS = module.default;
-  const desEncrypt = (text, key) => {
-    const keyHex = CryptoJS.enc.Hex.parse(key);
-    const encrypted = CryptoJS.DES.encrypt(text, keyHex, {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.Pkcs7
-    });
-    return encrypted.toString();
-  };
-  const parseCookie = (cookie) => {
-    if (!cookie) return {}
-    const cookies = cookie.split(';')
-    const result = {}
-    for (const c of cookies) {
-      const [key, value] = c.trim().split('=')
-      result[key] = value
+  setTimeout(() => {
+    const CryptoJS = module.default;
+    const desEncrypt = (text, key) => {
+      const keyHex = CryptoJS.enc.Hex.parse(key);
+      const encrypted = CryptoJS.DES.encrypt(text, keyHex, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+      });
+      return encrypted.toString();
+    };
+    const parseCookie = (cookie) => {
+      if (!cookie) return {}
+      const cookies = cookie.split(';')
+      const result = {}
+      for (const c of cookies) {
+        const [key, value] = c.trim().split('=')
+        result[key] = value
+      }
+      return result
     }
-    return result
-  }
-  const time = parseCookie(document.cookie).sid;
-  if (!time) return;
-  const text = btoa('${getRandomString()}') + '&' + time;
-  document.cookie = 'token=' + btoa(desEncrypt(text, '${desKey}'));
-  location.reload();
+    const time = parseCookie(document.cookie).sid;
+    if (!time) return;
+    const text = btoa('${getRandomString()}') + '&' + time;
+    document.cookie = 'token=' + btoa(desEncrypt(text, '${desKey}'));
+    location.reload();
+  }, 30)
 })
 .catch(error => {
   console.error(error);
@@ -45,7 +47,7 @@ const unauthorized = (req: any, res: any) => {
     jsCode,
     base64Encrypt(req.session.sid)
   )}</script>`
-  return res.status(401).send(script)
+  return res.send(script)
 }
 
 export default function (req: any, res: any, next: any) {
