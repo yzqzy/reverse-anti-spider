@@ -3,7 +3,6 @@ import ViteExpress from 'vite-express'
 import bodyParser from 'body-parser'
 import session from 'express-session'
 
-import { isProd } from './config/index.js'
 import initMiddlewares from './middleware/index.js'
 import serverTime from './service/server-time.js'
 import toeknVerify from './service/token-verify.js'
@@ -11,6 +10,8 @@ import caesarCipherVerify from './service/caesar-cipher-verify.js'
 import cookieVerify from './service/cookie-verify.js'
 import cookiePlusVerify from './service/cookie-plus-verify.js'
 import sessionVerify from './service/session-verify.js'
+
+import { getRandomString } from '@shared/tools.js'
 
 const app = express()
 
@@ -21,15 +22,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(
   session({
-    secret: 'anti_spider_YhsAGLtVjBVgkEDTRA8D',
+    secret: `anti_spider_${getRandomString()}`,
     resave: false,
     saveUninitialized: true,
     name: 'spider.sid'
   })
 )
 app.use((req, res, next) => {
-  // console.log(`Request: ${req.method} ${req.url}`)
-
   if (req.url.startsWith('/cookie-verify')) {
     res.cookie('sid', Date.now() + '')
   }
@@ -38,7 +37,6 @@ app.use((req, res, next) => {
     res.cookie('sid', time)
     req.session.sid = time
   }
-
   next()
 })
 
