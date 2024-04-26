@@ -33,6 +33,11 @@ const routes: RouteRecordRaw[] = [
     path: '/cookie-plus-verify',
     name: 'CookiePlusVerify',
     component: () => import('@client/views/cookie-plus-verify.vue')
+  },
+  {
+    path: '/link-method-verify',
+    name: 'LinkMethodVerify',
+    component: () => import('@client/views/link-method-verify.vue')
   }
 ]
 

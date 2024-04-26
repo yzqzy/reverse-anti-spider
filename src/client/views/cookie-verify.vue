@@ -7,7 +7,7 @@
 import { ref, onMounted } from 'vue'
 import request from '@shared/request'
 import { desEncrypt } from '@shared/encrypt'
-import { parseCookie } from '../../shared/tools';
+import { parseCookie } from '@shared/tools';
 
 const result = ref('')
 

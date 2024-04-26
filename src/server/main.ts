@@ -3,15 +3,9 @@ import ViteExpress from 'vite-express'
 import bodyParser from 'body-parser'
 import session from 'express-session'
 
-import initMiddlewares from './middleware/index.js'
-import serverTime from './service/server-time.js'
-import toeknVerify from './service/token-verify.js'
-import caesarCipherVerify from './service/caesar-cipher-verify.js'
-import cookieVerify from './service/cookie-verify.js'
-import cookiePlusVerify from './service/cookie-plus-verify.js'
-import sessionVerify from './service/session-verify.js'
-
 import { getRandomString } from '@shared/tools.js'
+import initMiddlewares from './middleware/index.js'
+import router from './router/index.js'
 
 const app = express()
 
@@ -40,12 +34,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/api/server-time', serverTime)
-app.get('/api/token-verify', toeknVerify)
-app.get('/api/caesar-cipher-verify', caesarCipherVerify)
-app.get('/api/cookie-verify', cookieVerify)
-app.get('/api/cookie-plus-verify', cookiePlusVerify)
-app.get('/api/session-verify', sessionVerify)
+app.use('/api', router)
 
 const port = Number(process.env.PORT) || 3000
 ViteExpress.listen(app, port, () =>
