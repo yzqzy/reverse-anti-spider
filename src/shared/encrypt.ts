@@ -58,3 +58,20 @@ export const caesarCipherDecrypt = (text: string, iv: number) => {
   }
   return result
 }
+
+export const xorEncryptOrDecrypt = (text: string, key: string) => {
+  let result = ''
+  for (let i = 0; i < text.length; i++) {
+    result += String.fromCharCode(
+      text.charCodeAt(i) ^ key.charCodeAt(i % key.length)
+    )
+  }
+  return result
+}
+
+export const buffersEncrypt = (text: string, key: string) => {
+  return new TextEncoder().encode(xorEncryptOrDecrypt(text, key))
+}
+export const buffersDecrypt = (buffer: ArrayBuffer, key: string) => {
+  return xorEncryptOrDecrypt(new TextDecoder().decode(buffer), key)
+}
