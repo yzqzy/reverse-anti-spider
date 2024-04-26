@@ -7,7 +7,7 @@
 import { ref, onMounted } from 'vue'
 import request from '@shared/request'
 import {
-  getEncryptParams, caesarCipherEncrypt, base64Encrypt
+  getEncryptParams, caesarCipherEncrypt
 } from '@shared/encrypt'
 
 const result = ref('')
