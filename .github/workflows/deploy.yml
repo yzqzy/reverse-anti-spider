@@ -28,3 +28,16 @@ jobs:
           context: .
           push: true
           tags: yzqzy/reverse-anti-spider:latest
+
+      ## If you want to deploy to server, you can use the following code
+      # - name: Deploy to Server
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.SERVER_HOST }}
+      #     username: ${{ secrets.SERVER_USERNAME }}
+      #     password: ${{ secrets.SERVER_PASSWORD }}
+      #     script: |
+      #       docker stop reverse-anti-spider || true  
+      #       docker rm reverse-anti-spider || true   
+      #       docker pull yzqzy/reverse-anti-spider:latest
+      #       docker run -d --name reverse-anti-spider -p 3000:3000 yzqzy/reverse-anti-spider:latest
