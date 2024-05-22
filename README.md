@@ -2,7 +2,7 @@
 
 通过 Node.js 实现反爬机制，以提高网站的安全性。
 
-> 技术栈： express + vue3 + element-plus
+> 技术栈： express + vite + vue3 + element-plus
 
 ## 一、功能列表
 

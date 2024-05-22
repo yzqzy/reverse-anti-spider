@@ -1,5 +1,5 @@
 <template>
-  <div class="back" v-if="$route.path !== '/'">
+  <div class="back" v-if="$route.path !== '/home'">
     <RouterLink to="/">返回主页</RouterLink>
   </div>
   <router-view></router-view>
