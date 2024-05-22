@@ -1,0 +1,9 @@
+syntax = "proto3";
+package TestMessage;
+
+message Msg {
+  string key = 1;  
+  bytes text = 2;  
+  int32 time = 3; 
+  bool is_published = 4;
+}

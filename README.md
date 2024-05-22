@@ -12,6 +12,7 @@
 * session 保持校验
 * cookie 校验 plus
 * link 请求校验
+* protobuf 校验
 
 ## 二、开发手册
 
