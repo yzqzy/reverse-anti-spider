@@ -2,7 +2,7 @@
 
 import { buffersDecrypt, buffersEncrypt } from '@shared/encrypt.js'
 
-const readBuffer = (req: any): Promise<any> => {
+export const readBuffer = (req: any): Promise<any> => {
   return new Promise((resolve, reject) => {
     let body: any = []
 
