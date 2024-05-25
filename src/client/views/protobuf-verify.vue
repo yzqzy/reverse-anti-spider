@@ -10,10 +10,11 @@ import { toProtobuf } from '@shared/protobuf';
 
 const result = ref('')
 
+// need optimization
+
 onMounted(() => {
   ; (async () => {
     try {
-
       const buffer = await toProtobuf({
         key: 'test',
         time: parseInt((Date.now() / 1000 + '')),
