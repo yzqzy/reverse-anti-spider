@@ -1,4 +1,5 @@
 import express from 'express'
+import dotenv from 'dotenv'
 import ViteExpress from 'vite-express'
 import bodyParser from 'body-parser'
 import session from 'express-session'
@@ -6,6 +7,8 @@ import session from 'express-session'
 import { getRandomString } from '@shared/tools.js'
 import initMiddlewares from './middleware/index.js'
 import router from './router/index.js'
+
+dotenv.config()
 
 const app = express()
 
